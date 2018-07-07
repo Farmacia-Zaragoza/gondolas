@@ -1,0 +1,181 @@
+/*Chat-captcha starts*/
+
+.captcha-chat {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: #183650;
+    z-index: 99;
+    font-size: 14px;
+    display: none;
+}
+
+.captcha-container {
+    position: absolute;
+    bottom: 98px;
+    right: 30px;
+    background-color: #34ccff;
+    box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 12px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.5);
+    transform-origin: 100% 100%;
+    transition: all 0.3s ease-out;
+}
+
+.captcha-container.shown {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.media-left,
+.media-body {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.captcha-chat .media-body {
+    padding-left: 10px;
+}
+
+.captcha-chat .cartoon-logo {
+    width: 66px;
+    border-radius: 35px;
+    margin-top: -35px;
+    border: 2px solid #34ccff;
+    background-color: #fcfcfc;
+}
+.captcha-chat .security {
+    font-size: 18px;
+}
+
+.captcha-chat .why-captcha {
+    font-size: 14px;
+}
+
+.captcha-chat .info {    
+    display: none;
+    margin-top: 7px;    
+}
+
+.captcha-chat .wrong {
+    color: red;
+}
+
+.captcha-chat .redirecting,  
+.captcha-chat .captcha_loading {
+    color: green;
+}
+
+
+.captcha-chat .wrong.shake {
+    animation: shake .4s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(2px, 0, 0);
+  }
+}
+
+.captcha-chat #captcha {
+    margin-top: 10px;
+}
+
+#captcha canvas {
+    border: 1px solid #67d9ff;
+    display: block;
+    margin: auto;
+}
+
+.captcha-chat .user-text {
+    width: 158px;
+    height: 40px;
+    vertical-align: middle;
+    padding-left: 10px;
+    color: #183650;
+}
+
+.captcha-chat .user-text:focus {
+    box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
+}
+
+#captcha > div:nth-child(1) {
+    margin-bottom: 10px;
+}
+
+.captcha-chat .btn-common {
+    background-color: #67d9ff;
+    border: none;
+    border-radius: 5px;
+}
+
+.captcha-chat .btn-common:focus {
+    outline: none;
+}
+
+.captcha-chat .chat-icon {
+    width: 52px;
+    height: 52px;
+    background-color: #34ccff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
+    margin-left: auto;
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+}
+
+.chat-icon svg {
+    margin: auto;
+}
+.chat-icon .cross-icon {
+    display: none;
+}
+
+.captcha-container.shown + .chat-icon > .cross-icon {
+    display: block;
+}
+
+.captcha-container.shown + .chat-icon > .message-icon {
+    display: none;
+}
+
+.chat-icon svg.active {
+
+}
+
+.captcha-chat .controls button {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.captcha-chat .validate img {
+    width: 30px;
+}
+
+.captcha-chat .refresh img {
+    width: 30px;
+}
+
+
+/*chat-captcha finishes*/
