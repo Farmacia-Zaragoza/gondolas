@@ -1,52 +1,20 @@
+/*
+  sidebar.js - common for all version
+  Date: 08-07-2018
+*/
+
+
  /* Sidebar Starts */
         ! function() {
               var viewPortWidth = window.innerWidth;
              if (viewPortWidth > 767) {
-
-                  var imgsArray = [
-                                   "truck_model_001_blue_left",
-                                   "truck_model_001_blue_right",
-                                   "truck_model_001_green_left",
-                                   "truck_model_001_green_right",
-                                   "truck_model_001_orange_left",
-                                   "truck_model_001_orange_right",
-                                   "truck_model_001_red_left",
-                                   "truck_model_001_red_right",
-                                   "truck_model_002_blue_left",
-                                   "truck_model_002_blue_right",
-                                   "truck_model_002_darkblue_left",
-                                   "truck_model_002_darkblue_right",
-                                   "truck_model_002_orange_left",
-                                   "truck_model_002_orange_right",
-                                   "truck_model_002_pink_left",
-                                   "truck_model_002_pink_right",
-                                   "truck_model_003_green_left",
-                                   "truck_model_003_green_right",
-                                   "truck_model_003_white_left",
-                                   "truck_model_003_white_right",
-                                   "truck_model_004_blue_left",
-                                   "truck_model_004_blue_right",
-                                   "truck_model_004_green_left",
-                                   "truck_model_004_green_right",
-                                   "truck_model_004_orange_left",
-                                   "truck_model_004_orange_right",
-                                   "truck_model_004_red_left",
-                                   "truck_model_004_red_right",
-                                   "truck_model_005_orange_left",
-                                   "truck_model_005_orange_right",
-                                   "truck_model_005_red_left",
-                                   "truck_model_005_red_right",
-                                   "truck_model_005_violet_left"
-                                   // "truck_model_005_violet_right",
-                                   ];
-                  //console.log(imgsArray.length);
+                  var mini_trucks_links = document.getElementById('mini_trucks_links').getAttribute('data');
+                  var imgsArray =mini_trucks_links.split(',');
+                  var trucks_light_foldername = document.getElementById('trucks_light_foldername').textContent;
 
                   var truck_folder_name = $("#truck_folder_name").html();
-                  //console.log('mini truck Image folder: '+truck_folder_name);
                   var linksMainString = $('#truck_links').data('links');
-                  //console.log(linksMainString);
                   var linksArray = linksMainString.split(",");
-                  //console.log(linksArray);
                   if(linksArray === undefined){
                       console.log("Error: There is no link for the trucks");
                       linksArray = [];
@@ -54,10 +22,17 @@
                           linksArray[i]="#";
                       }
                   }
-             //      //var baseURL = location.protocol+'//'+location.hostname+'/';
-             //      // var baseURL = location.href;
-             //      //var baseURL = prot+'//'+hst+'/';
-                  var baseURL = 'http://gondolas01.dbrqx.com/index1/';
+                  var dev_string = document.getElementById('dev_string').textContent;
+                  var baseURL;
+                  if(dev_string) {
+                     baseURL = location.protocol+'//'+location.hostname+'/'+dev_string+'/';
+                  }else {
+                     baseURL = location.protocol+'//'+location.hostname+'/';
+                  }
+                  // var baseURL = location.protocol+'//'+location.hostname+'/'+dev_string+'/'; //+'dev/'
+                  // var baseURL = location.href;
+                  //var baseURL = prot+'//'+hst+'/';
+                  //var baseURL = 'http://gondolas02.vbrqx.com/dev/';
                   //console.log(baseURL);
 
                   function generateRandomForArray() {
@@ -71,60 +46,67 @@
 
                   var leftWidth = $('.left_sidebar').width();
                   var leftHeight = $('.left_sidebar').height();
+                  console.log(leftHeight);
                  function setLeftImage(img_index){
                       var imageName = imgsArray[img_index];
-                      $(".left_sidebar").append("<a href='"+linksArray[img_index]+"'><img index='"+img_index+"' src='"+baseURL+truck_folder_name+"/trucks_light/" + imageName + ".svg'></a>");
-                      //$(".left-sidebar a").last().css({"top": top + "px", "left": left + "px"});
+                      $(".left_sidebar").append("<a href='"+linksArray[img_index]+"'><img index='"+img_index+"' src='"+baseURL+truck_folder_name+"/"+trucks_light_foldername+ "/"+ imageName + ".svg'></a>");
                   }
                   function setRightImage(img_index){
                       var imageName = imgsArray[img_index];
-                      $(".right_sidebar").append("<a href='"+linksArray[img_index]+"'><img index='"+img_index+"' src='"+baseURL+truck_folder_name+"/trucks_light/" + imageName + ".png'></a>");
-                      //$(".right-sidebar a").last().css({"top": top + "px", "right": right + "px"});
+                      $(".right_sidebar").append("<a href='"+linksArray[img_index]+"'><img index='"+img_index+"' src='"+baseURL+truck_folder_name+"/"+trucks_light_foldername+ "/"+ imageName + ".svg'></a>");
                   }
 
-                  //Setting image on both sidebar
+                  var quarterWidth = Math.floor(leftWidth/6);
+                 // console.log(quarterWidth);
                   var top=0, pos = 0;
-                  var quarterWidth = Math.floor(leftWidth/4);
-                  if(viewPortWidth > 991) {
-                     for(top = 0; top < leftHeight; top+=pos) {
-                         pos = getRandom(pos, quarterWidth);
-                         //console.log(pos);
-                         top+=pos;
-                         //console.log(top);
-                        var img_index = generateRandomForArray();
-                        setLeftImage(img_index);
+                   while( top < leftHeight){
+                       pos = getRandom(pos, quarterWidth);
+                       //console.log(pos);
+                       top+=30;
+                       //console.log(top);
+                      var img_index = generateRandomForArray();
+                      setLeftImage(img_index);
 
-                        img_index = generateRandomForArray();
-                        setRightImage(img_index);                     
+                      img_index = generateRandomForArray();
+                      setRightImage(img_index);
+                   }
+                   function randomImgLeft() {
+                      var div = document.querySelector('.left_sidebar');
+                      var twoImgArr=[];
+                      twoImg = div.querySelectorAll('a');
+                      for(var i=0; i<twoImg.length; i++) {
+                        if(i%2===0) {
+                          twoImgArr.push([twoImg[i],twoImg[i+1]]);
+                        }
+                      }
+                      for(var i=0; i<twoImgArr.length; i++) {
+                        if(i%2===0) {
+                          //console.log(twoImgArr[i][0]);
+                          twoImgArr[i][0].style.marginLeft = '20%';
+                        }
+                      }
+                      //console.log(twoImgArr);
                     }
-                  }
-                  //console.log(quarterWidth);
-                   // while( top < leftHeight){
-                   //     pos = getRandom(pos, quarterWidth);
-                   //     //console.log(pos);
-                   //     top+=pos;
-                   //     //console.log(top);
-                   //    var img_index = generateRandomForArray();
-                   //    setLeftImage(img_index);
+                    randomImgLeft();
 
-                   //    img_index = generateRandomForArray();
-                   //    setRightImage(img_index); 
-
-                   //    // if((quarterWidth > leftWidth) && pos!=0){
-                   //    //     //quarterWidth = Math.floor(leftWidth/4);
-                   //    //     pos = 0;
-                   //    //     if(userAgent.width() >= 1601){
-                   //    //         top+=160;
-                   //    //     } else if (userAgent.width() >=1441) {
-                   //    //         top+=130;
-                   //    //     }else if (userAgent.width() >=1367) {
-                   //    //         top+=120;
-                   //    //     }else {
-                   //    //         top+=100;
-                   //    //     }
-                   //    // }
-
-                   // }
+                    function randomImgRight() {
+                      var div = document.querySelector('.right_sidebar');
+                      var twoImgArr=[];
+                      twoImg = div.querySelectorAll('a');
+                      for(var i=0; i<twoImg.length; i++) {
+                        if(i%2===0) {
+                          twoImgArr.push([twoImg[i],twoImg[i+1]]);
+                        }
+                      }
+                      for(var i=0; i<twoImgArr.length; i++) {
+                        if(i%2===0) {
+                          //console.log(twoImgArr[i][0]);
+                          twoImgArr[i][0].style.marginLeft = '20%';
+                        }
+                      }
+                      //console.log(twoImgArr);
+                    }
+                    randomImgRight();
               }
          }();
         /* Sidebar End */
